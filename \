@@ -1,0 +1,32 @@
+(function($) {
+	$.entwine('ss.tree', function($){
+			$('#blockTop, #blockLeft, #blockMiddle, #blockRight, #blockBottom').entwine({
+				onclick: function() {
+					$('body').data('single-block',$(this).attr('data-id'));	
+					console.log($('body').data('single-block'));
+					console.log($('body').data('single-tree'));
+					console.log(this.data('url')),
+					$.ajax($.extend({}, {
+						headers: {"X-Pjax" : 'CurrentField'},
+						type: "POST",
+						data: $('body').data(),
+						url: this.data('url'),
+						dataType: 'html',
+						success: function(data) {
+						},
+						error: function(e) {
+						}
+					}, ajaxOpts));
+				}
+			});
+
+			$('#Pages').entwine({
+				onchange: function(e) {
+					//var page = $('[name^=Pages]').val();
+					console.log($(this)[0].firstChild.textContent);
+					//console.log($(this)[0].firstChild.textContent);
+					console.log($('[name^=Pages]').text());
+				}
+			});
+	});
+}(jQuery));
